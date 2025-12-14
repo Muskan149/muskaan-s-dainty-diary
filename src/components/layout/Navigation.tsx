@@ -8,7 +8,7 @@ const Navigation = () => {
           to="/" 
           className="font-serif text-xl tracking-wide text-foreground hover:opacity-70 transition-opacity"
         >
-          muskaan
+          muskan
         </NavLink>
         
         <div className="flex items-center gap-8">
@@ -32,7 +32,7 @@ const Navigation = () => {
             className="nav-link"
             activeClassName="nav-link-active"
           >
-            gallery
+            corner
           </NavLink>
         </div>
       </nav>

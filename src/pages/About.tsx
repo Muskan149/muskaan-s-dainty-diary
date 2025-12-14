@@ -8,33 +8,35 @@ const About = () => {
             <div className="space-y-8">
               {/* Main greeting */}
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light tracking-wide leading-tight">
-                Namaste, I am Muskaan.
+                Namaste! I am Muskan.
               </h1>
               
               {/* Professional pointers */}
               <div className="space-y-3 pt-4">
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
-                  CS major at Georgia Tech
+                  CS @ Georgia Tech
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
-                  President at Women in College of Computing
+                  Incoming SWE Intern @ LinkedIn
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
-                  Incoming SWE Intern at LinkedIn
+                  President @ Women in College of Computing
                 </p>
+
               </div>
               
               {/* Quirky pointers with subtle accent backgrounds */}
               <div className="space-y-3 pt-6">
                 <p className="font-sans text-base md:text-lg text-foreground/80 tracking-wide italic">
-                  Eldest daughter
+                  eldest daughter
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/80 tracking-wide italic">
-                  Friendly neighborhood builder
+                  type a life-romanticizer
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/80 tracking-wide italic">
-                  Type A life romanticizer
+                  saffron adeni chai enjoyer
                 </p>
+                
               </div>
             </div>
           </div>
@@ -47,9 +49,7 @@ const About = () => {
               
               {/* Image placeholder - vertical orientation */}
               <div className="w-64 md:w-72 lg:w-80 aspect-[3/4] bg-muted rounded-sm overflow-hidden">
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground font-sans text-sm">
-                  <span className="opacity-50">portrait image</span>
-                </div>
+                <img src="/G64YqJubkAAbQ8I.jpeg" alt="Muskan Portrait" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>

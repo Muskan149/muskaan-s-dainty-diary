@@ -15,8 +15,12 @@ const Resume = () => {
         {/* PDF Viewer Container */}
         <div className="animate-slide-up" style={{ animationDelay: "0.1s" }}>
           <div className="bg-card border border-border rounded-sm overflow-hidden shadow-sm">
+                        {/* {/* <div className="aspect-[8.5/11] bg-muted/50 flex flex-col items-center justify-center p-8"> */}
+                        <div className="aspect-[8.5/11] bg-muted/50 flex flex-col items-center justify-center p-8">
+            <iframe src="/Mahajan_Muskan_Resume_August_SWEIntern_Sep (1).pdf" width="100%" height="100%"></iframe>
+            </div>
             {/* PDF Placeholder */}
-            <div className="aspect-[8.5/11] bg-muted/50 flex flex-col items-center justify-center p-8">
+            {/* <div className="aspect-[8.5/11] bg-muted/50 flex flex-col items-center justify-center p-8">
               <FileText className="w-16 h-16 text-muted-foreground/40 mb-4" />
               <p className="text-muted-foreground font-sans text-sm text-center">
                 Resume PDF will be displayed here
@@ -24,7 +28,7 @@ const Resume = () => {
               <p className="text-muted-foreground/60 font-sans text-xs mt-2 text-center">
                 Upload your resume in the admin panel
               </p>
-            </div>
+            </div> */}
           </div>
           
           {/* Download link placeholder */}
