@@ -34,6 +34,13 @@ const Navigation = () => {
           >
             corner
           </NavLink>
+          <NavLink 
+            to="/cups" 
+            className="nav-link"
+            activeClassName="nav-link-active"
+          >
+            cups
+          </NavLink>
         </div>
       </nav>
     </header>
