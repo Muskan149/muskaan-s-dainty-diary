@@ -7,6 +7,7 @@ import Layout from "./components/layout/Layout";
 import About from "./pages/About";
 import Resume from "./pages/Resume";
 import Gallery from "./pages/Gallery";
+import Cups from "./pages/Cups";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -23,6 +24,7 @@ const App = () => (
             <Route path="/" element={<About />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/cups" element={<Cups />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
