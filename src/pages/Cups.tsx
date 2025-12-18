@@ -3,26 +3,37 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const cupLabels = ["Curiosity", "Creation", "Love", "Health", "Wealth"];
 
+const cupEmojis: Record<string, string> = {
+  Curiosity: "🤓",
+  Creation: "🚀",
+  Love: "💝",
+  Health: "🍎",
+  Wealth: "💰",
+};
+
 const TeaCup = ({ 
   label, 
   isPouring, 
-  isFilled, 
+  isFilled,
+  showSteam,
   onClick 
 }: { 
   label: string; 
   isPouring: boolean; 
   isFilled: boolean;
+  showSteam: boolean;
   onClick: () => void;
 }) => {
   const accentColors: Record<string, string> = {
     Curiosity: "hsl(var(--accent-yellow))",
-    Creation: "hsl(var(--accent-peach))",
-    Love: "hsl(var(--accent-pink))",
+    Creation: "hsl(280, 60%, 55%)", // Purple
+    Love: "hsl(345, 60%, 40%)", // Cherry burgundy
     Health: "hsl(var(--accent-green))",
     Wealth: "hsl(var(--accent-yellow))",
   };
 
   const accent = accentColors[label] || "hsl(var(--accent-peach))";
+  const emoji = cupEmojis[label];
 
   return (
     <motion.div
@@ -32,22 +43,79 @@ const TeaCup = ({
       whileTap={{ scale: 0.98 }}
     >
       <div className="relative w-24 h-28 md:w-32 md:h-36">
-        {/* Steam animation */}
+        {/* Steam and emoji animation */}
         <AnimatePresence>
-          {isFilled && (
+          {showSteam && (
+            <>
+              {/* Steam wisps */}
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex gap-1">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-1 bg-muted-foreground/20 rounded-full"
+                    initial={{ height: 0, opacity: 0, y: 0 }}
+                    animate={{ 
+                      height: [8, 16, 8],
+                      opacity: [0.3, 0.6, 0],
+                      y: [-5, -20, -30]
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: 2,
+                      delay: i * 0.2,
+                      ease: "easeOut"
+                    }}
+                  />
+                ))}
+              </div>
+              
+              {/* Rising emojis */}
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={`emoji-${i}`}
+                  className="absolute left-1/2 text-lg md:text-xl"
+                  initial={{ 
+                    opacity: 0, 
+                    y: 0, 
+                    x: "-50%",
+                    scale: 0.5
+                  }}
+                  animate={{ 
+                    opacity: [0, 1, 1, 0],
+                    y: [-20, -40, -60, -80],
+                    x: `calc(-50% + ${(i - 1) * 15}px)`,
+                    scale: [0.5, 1, 1, 0.8],
+                    rotate: [0, (i - 1) * 10, (i - 1) * -5, 0]
+                  }}
+                  transition={{
+                    duration: 2,
+                    delay: i * 0.4,
+                    ease: "easeOut"
+                  }}
+                >
+                  {emoji}
+                </motion.div>
+              ))}
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Persistent steam after fill */}
+        <AnimatePresence>
+          {isFilled && !showSteam && (
             <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex gap-1">
               {[0, 1, 2].map((i) => (
                 <motion.div
                   key={i}
-                  className="w-1 bg-muted-foreground/20 rounded-full"
+                  className="w-1 bg-muted-foreground/15 rounded-full"
                   initial={{ height: 0, opacity: 0, y: 0 }}
                   animate={{ 
-                    height: [8, 16, 8],
-                    opacity: [0.3, 0.6, 0],
-                    y: [-5, -20, -30]
+                    height: [6, 12, 6],
+                    opacity: [0.2, 0.4, 0],
+                    y: [-5, -15, -25]
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 2.5,
                     repeat: Infinity,
                     delay: i * 0.3,
                     ease: "easeOut"
@@ -149,7 +217,6 @@ const Teapot = ({
   isPouring: boolean; 
   targetCup: number | null;
 }) => {
-  const cupPositions = [0, 1, 2, 3, 4];
   const targetX = targetCup !== null ? (targetCup - 2) * 140 : 0;
 
   return (
@@ -252,6 +319,7 @@ const Teapot = ({
 const Cups = () => {
   const [filledCups, setFilledCups] = useState<Set<number>>(new Set());
   const [pouringCup, setPouringCup] = useState<number | null>(null);
+  const [steamingCup, setSteamingCup] = useState<number | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleCupClick = async (index: number) => {
@@ -265,24 +333,40 @@ const Cups = () => {
       audioRef.current.play().catch(() => {});
     }
 
-    // Wait for animation
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // Wait for pouring animation
+    await new Promise((resolve) => setTimeout(resolve, 2500));
 
     setFilledCups((prev) => new Set([...prev, index]));
     setPouringCup(null);
+    
+    // Start steam + emoji animation
+    setSteamingCup(index);
+    
+    // Stop audio after a bit longer
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    }, 1000);
+    
+    // Steam lasts 3 seconds
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    setSteamingCup(null);
   };
 
   const resetCups = () => {
     setFilledCups(new Set());
+    setSteamingCup(null);
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-24">
-      {/* Ambient pouring sound */}
+      {/* Ambient pouring sound - longer audio */}
       <audio
         ref={audioRef}
         src="https://assets.mixkit.co/active_storage/sfx/2430/2430-preview.mp3"
         preload="auto"
+        loop
       />
 
       <motion.div
@@ -318,6 +402,7 @@ const Cups = () => {
               label={label}
               isPouring={pouringCup === index}
               isFilled={filledCups.has(index)}
+              showSteam={steamingCup === index}
               onClick={() => handleCupClick(index)}
             />
           ))}
