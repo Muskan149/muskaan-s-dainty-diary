@@ -366,7 +366,6 @@ const Cups = () => {
         ref={audioRef}
         src="https://assets.mixkit.co/active_storage/sfx/2430/2430-preview.mp3"
         preload="auto"
-        loop
       />
 
       <motion.div
