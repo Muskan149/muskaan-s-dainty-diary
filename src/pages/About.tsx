@@ -34,7 +34,7 @@ const About = () => {
                   type a life-romanticizer
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/80 tracking-wide italic">
-                  saffron adeni chai enjoyer
+                  adeni chai enjoyer
                 </p>
                 
               </div>
