@@ -14,10 +14,10 @@ const About = () => {
               {/* Professional pointers */}
               <div className="space-y-3 pt-4">
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
-                  CS @ Georgia Tech
+                  Sen @ Georgia Tech
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
-                  Incoming SWE Intern @ LinkedIn
+                  Prev ML/AI @ LinkedIn
                 </p>
                 <p className="font-sans text-base md:text-lg text-foreground/90 tracking-wide">
                   President @ Women in College of Computing
